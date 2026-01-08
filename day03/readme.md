@@ -1,9 +1,9 @@
-# run pod with imparative way (name here is nginx-pod)
+## Run pod with imperative way (name here is nginx-pod)
 
 ```bash
 kubectl run nginx-pod --image=nginx
 ```
-* run created pod config to yaml file
+* Get created pod config to a yaml file
 
 ```bash
 kubectl get pod nginx-pod -o yaml > nginx-pod.yaml
@@ -15,7 +15,26 @@ kubectl get pod nginx-pod -o yaml > nginx-pod.yaml
 kubectl delete pod nginx-pod
 ```
 
-# create pod from yaml file
+## Create pod from yaml file
+
+```yaml
+# nginx-pod.yaml
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-pod
+  labels:
+    env: demo
+    type: frontend
+spec:
+  containers:
+  - name: nginx-container
+    image: nginx
+    ports:
+    - containerPort:80
+```
+*Apply the yaml file to create the pod*
 
 ```bash
 kubectl apply -f nginx-pod.yaml
