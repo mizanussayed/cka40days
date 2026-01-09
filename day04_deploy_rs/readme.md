@@ -4,7 +4,16 @@ A ReplicaSet to ensure that a specified number of pod replicas are running at an
 
 A Deployment provides declarative updates for Pods and ReplicaSets. You describe a desired state in a Deployment object, and the Deployment controller changes the actual state to the desired state at a controlled rate. You can define Deployments to create new ReplicaSets, or to remove existing Deployments and adopt all their resources with new Deployments.
 
-## to create a deployment by command line
+| ReplicaSet           | Deployment                 |
+| -------------------- | -------------------------- |
+| Keeps pods running   | Manages ReplicaSets        |
+| No updates           | Rolling updates & rollback |
+| Rarely used directly | Best practice              |
+
+## The hierarchy is as follows:
+Deployment → ReplicaSet → Pods
+
+## Some useful commands for managing ReplicaSets and Deployments:
 ```bash 
 kubectl create deployment nginx-deployment --image=nginx --replicas=3
 
@@ -35,11 +44,11 @@ spec:
   replicas: 3
   selector:
     matchLabels:
-      app: nginx
+      app: frontend
   template:
     metadata:
       labels:
-        app: nginx
+        app: frontend
     spec:
       containers:
       - name: nginx
@@ -47,7 +56,7 @@ spec:
         ports:
         - containerPort: 80
 ```
-# create deployment by yaml file
+## Create deployment by YAML file
 below is an example of a Deployment configuration file:
 ```yaml
 apiVersion: apps/v1
@@ -58,11 +67,11 @@ spec:
   replicas: 3
   selector:
     matchLabels:
-      app: nginx
+      app: frontend
   template:
     metadata:
       labels:
-        app: nginx
+        app: frontend
     spec:
       containers:
       - name: nginx
