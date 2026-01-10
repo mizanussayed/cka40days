@@ -27,10 +27,10 @@ kubectl get deployments
 kubectl scale rs nginx-replicaset --replicas=5
 
 # scale the Deployment to 5 replicas
-kubectl scale deployment/nginx-deployment --replicas=5
+kubectl scale deploy nginx-deployment --replicas=5
 
 # update the deployment to use a different image
-kubectl set image deployment/nginx-deployment nginx=nginx:1.16.1
+kubectl set image deploy nginx-deployment nginx=nginx:1.16.1
 ```
 
 ## Create a ReplicaSet by YAML file
