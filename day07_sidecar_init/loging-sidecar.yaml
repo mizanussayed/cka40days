@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: logging-sidecar-pod
+  labels:
+    app: log
+spec:
+  volumes:
+  - name: log-volume
+    emptyDir: {}
+  containers:
+  - name: app
+    image: busybox
+    command: ['sh', '-c', 'while true; do echo "app log" >> /var/log/app.log; sleep 5; done']
+    volumeMounts:
+    - name: log-volume
+      mountPath: /var/log
+  - name: log-sidecar
+    image: busybox
+    command: ['sh', '-c', 'tail -f /var/log/app.log']
+    volumeMounts:
+    - name: log-volume
+      mountPath: /var/log
+
+
+
+
