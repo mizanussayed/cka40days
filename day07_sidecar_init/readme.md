@@ -2,7 +2,6 @@
 A multi-container Pod runs multiple containers that share the same network and storage. It is commonly used with init containers for setup and sidecar containers for support tasks like logging or monitoring.
 
 ### Key Concepts
-
 * Init Container: Runs first and completes setup before app containers start
 * Main Container: Runs the primary application
 * Sidecar Container: Runs alongside the app to extend functionality
