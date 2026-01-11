@@ -4,9 +4,7 @@ A multi-container Pod runs multiple containers that share the same network and s
 ### Key Concepts
 
 * Init Container: Runs first and completes setup before app containers start
-
 * Main Container: Runs the primary application
-
 * Sidecar Container: Runs alongside the app to extend functionality
 * Shared Volume: Enables data sharing between containers
 
