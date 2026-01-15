@@ -92,6 +92,10 @@ tolerations:
   tolerationSeconds: 300
   ```
 
+## reomve taint from node
+```bash
+kubectl taint nodes node-name key:effect-
+```
 
 This pod will be evicted (উচ্ছেদ)  after 5 minutes if the node becomes NotReady.
 

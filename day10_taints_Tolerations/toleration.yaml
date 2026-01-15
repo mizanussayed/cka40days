@@ -8,7 +8,7 @@ spec:
     image: nginx
   tolerations:
   - key: "dedicated"
-    operator: "Equals"
+    operator: "Equal"
     value: "production"
     effect: "NoSchedule"
 
@@ -38,7 +38,7 @@ spec:
     image: nginx
   tolerations:
   - key: "node.kubernetes.io/unreachable"
-    operator: "Equals"
+    operator: "Equal"
     value: "true"
     effect: "PreferNoExecute"
     tolerationSeconds: 300 # 5 minutes wait to get evicted (উচ্ছেদ)
