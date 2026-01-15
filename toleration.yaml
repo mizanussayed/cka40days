@@ -1,0 +1,44 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: noschedule-toleration-example
+spec:
+  containers:
+  - name: nginx
+    image: nginx
+  tolerations:
+  - key: "dedicated"
+    operator: "Equals"
+    value: "production"
+    effect: "NoSchedule"
+
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: noexecute-toleration-example
+spec:
+  containers:
+  - name: nginx
+    image: nginx
+  tolerations:
+  - key: "node.kubernetes.io/not-ready"
+    operator: "Exists"
+    effect: "NoExecute"
+    tolerationSeconds: 300
+
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: preferred-noexecute-toleration
+spec:
+  containers:
+  - name: nginx
+    image: nginx
+  tolerations:
+  - key: "node.kubernetes.io/unreachable"
+    operator: "Equals"
+    value: "true"
+    effect: "PreferNoExecute"
+    tolerationSeconds: 300 # 5 minutes wait to get evicted (উচ্ছেদ)
