@@ -91,14 +91,11 @@ tolerations:
   effect: "NoExecute"
   tolerationSeconds: 300
   ```
-
+This pod will be evicted (উচ্ছেদ)  after 5 minutes if the node becomes NotReady.
 ## reomve taint from node
 ```bash
 kubectl taint nodes node-name key:effect-
 ```
-
-This pod will be evicted (উচ্ছেদ)  after 5 minutes if the node becomes NotReady.
-
 ### Labels vs Taints/Tolerations
 Labels group nodes based on size, type,env, etc. Unlike taints, labels don't directly affect scheduling but are useful for organizing resources.
 
