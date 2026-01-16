@@ -8,9 +8,19 @@ spec:
     image: nginx
   affinity:
     nodeAffinity:
-      requiredDuringSchedulingIgnoreDuringExecution:
+      requiredDuringSchedulingIgnoredDuringExecution:
        nodeSelectorTerms:
-       - key: disktype
-         operator: Equal
-         values:
-         - ssd
+        - matchExpressions:
+          - key: disktype
+            operator: In
+            values:
+            - ssd
+      preferredDuringSchedulingIgnoredDuringExecution:
+      - weight: 1 # Weight can be between 1-100
+        preference:
+          matchExpressions:
+          - key: region
+            operator: In
+            values:
+            - us-west-1
+            - us-west-2
