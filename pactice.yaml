@@ -6,8 +6,14 @@ spec:
   containers:
    - name: nginx-ctr
      image: nginx
-  tolerations:
-   - key: dedicated
-     operator: Equal
-     value: production
-     effect: NoExecute
+
+  affinity:
+    nodeAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution:
+      - weight: 1
+        preference:
+          matchExpressions:
+          - key: disktype
+            operator: In
+            values:
+            - ssd

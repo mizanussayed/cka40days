@@ -37,9 +37,12 @@ spec:
 
 In this example, the pod will only be scheduled on nodes with the label `disktype=ssd`. Additionally, it prefers nodes in the `us-west` or `us-east` regions, but this is not a strict requirement.
 
-### add labels to nodes
+### Add labels to nodes
 To use Node Affinity effectively, you need to label your nodes accordingly. Here’s how you can add labels to your nodes:
 ```bash
 kubectl label nodes <node-name> disktype=ssd
 kubectl label nodes <node-name> region=us-west
+
+# remove labels
+kubectl label nodes <node-name> disktype-
 ```
