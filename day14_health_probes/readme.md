@@ -55,11 +55,6 @@ spec:
         port: 8080
       initialDelaySeconds: 15
       periodSeconds: 20
-    readinessProbe:
-      tcpSocket:
-        port: 8080
-      initialDelaySeconds: 5
-      periodSeconds: 10 
 ```
 ## by exec
 ```yaml
