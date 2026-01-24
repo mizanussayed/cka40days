@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: example-config
+  namespace: default
+data:
+  firstname: mizanussayed
+  linkedin: /in/mizanussayed
+
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: configmap-pod
+  namespace: default
+spec:
+  containers:
+    - name: configmap-container
+      image: busybox
+      command: ["/bin/sh", "-c", "env; sleep 3600"]
+      env:
+        - name: FIRST_NAME
+          value: "hardcoded-value-mizanussayed"
+        - name: LINKEDIN_PROFILE
+          valueFrom:
+            configMapKeyRef:
+              name: example-config
+              key: linkedin
