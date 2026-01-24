@@ -1,6 +1,9 @@
 ## ConfigMap in Kubernetes
 A ConfigMap is a Kubernetes object used to store non-confidential configuration data in key-value pairs. It allows you to decouple configuration artifacts from image content to keep containerized applications portable.
 
+## Scope of ConfigMap
+ConfigMaps are namespace-scoped resources.
+
 ### Creating a ConfigMap
 You can create a ConfigMap using a YAML file or directly from the command line.
 #### Example YAML file (configmap.yaml)
@@ -9,6 +12,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: my-config
+  namespace: my-namespace
 data:
   database_url: "mongodb://localhost:27017"
   feature_flag: "true"
