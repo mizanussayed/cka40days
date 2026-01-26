@@ -27,7 +27,7 @@ metadata:
   name: read-pods
   namespace: default
 subjects:
-- kind: User
+- kind: User # other options: Group, ServiceAccount
   name: jane
   apiGroup: rbac.authorization.k8s.io
 roleRef:
@@ -61,9 +61,12 @@ roleRef:
   name: cluster-admin
   apiGroup: rbac.authorization.k8s.io
 ```
-### Applying the Configurations
-To apply these configurations, save each YAML snippet to a file (e.g., `role.yaml`, `rolebinding.yaml`, `clusterrole.yaml`, `clusterrolebinding.yaml`) and use the following command:
+### To Check RBAC Permissions
+You can use the `kubectl auth can-i` command to check if a user has specific permissions. For example:
 ```bash
-kubectl apply -f <filename>
+  kubectl auth can-i get pods --as=jane #output: yes
+  # for group
+  kubectl auth can-i get pods --as=system:authenticated:group:my-group
 ```
-Replace `<filename>` with the respective file name.
+This command checks if the user "jane" can get pods in the current namespace.
+### Conclusion
