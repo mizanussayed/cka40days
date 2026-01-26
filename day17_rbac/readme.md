@@ -64,9 +64,20 @@ roleRef:
 ### To Check RBAC Permissions
 You can use the `kubectl auth can-i` command to check if a user has specific permissions. For example:
 ```bash
+  # check current user
+  kubectl auth whoami
+  # for user
   kubectl auth can-i get pods --as=jane #output: yes
   # for group
   kubectl auth can-i get pods --as=system:authenticated:group:my-group
 ```
 This command checks if the user "jane" can get pods in the current namespace.
-### Conclusion
+### by command line
+```bash
+kubectl create role pod-reader --verb=get,list,watch --resource=pods --namespace=default
+
+kubectl create rolebinding read-pods-binding --role=pod-reader --user=jane --namespace=default
+
+kubectl create clusterrole node-reader --verb=get,list,watch --resource=nodes
+kubectl create clusterrolebinding node-reader-binding --clusterrole=node-reader --user=jane
+```
