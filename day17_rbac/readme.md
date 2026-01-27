@@ -81,3 +81,9 @@ kubectl create rolebinding read-pods-binding --role=pod-reader --user=jane --nam
 kubectl create clusterrole node-reader --verb=get,list,watch --resource=nodes
 kubectl create clusterrolebinding node-reader-binding --clusterrole=node-reader --user=jane
 ```
+### command for get resource /apiGroup & versions
+```bash
+kubectl api-resources
+kubectl api-versions
+kubectl api-resources --api-group=apps
+```
