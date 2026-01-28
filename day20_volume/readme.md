@@ -1,4 +1,4 @@
-# Day 29/40 Kubernetes Volume Simplified | Persistent Volume, Persistent Volume Claim & Storage Class
+# Kubernetes Volume Simplified | Persistent Volume, Persistent Volume Claim & Storage Class
 
 ### How they are related to each other
 
