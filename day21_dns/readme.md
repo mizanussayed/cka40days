@@ -1,4 +1,4 @@
-# Day 30/40  - DNS (Domain Name System) in Kubernetes | CoreDNS Explained
+# DNS (Domain Name System) in Kubernetes | CoreDNS Explained
 ### What is DNS in Kubernetes?
 DNS (Domain Name System) in Kubernetes is a critical component that allows services and pods within a Kubernetes cluster to discover and communicate with each other using human-readable names instead of IP addresses. Kubernetes automatically sets up a DNS server (usually CoreDNS) that resolves the names of services and pods to their corresponding IP addresses.
 
