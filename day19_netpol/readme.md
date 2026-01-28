@@ -122,7 +122,7 @@ spec:
           protocol: TCP
 ```
 
-#### Network policy sample used in the video
+#### Network policy sample
 
 ```yaml
 apiVersion: networking.k8s.io/v1
