@@ -22,7 +22,7 @@ kind: Ingress
 metadata:
   name: example-ingress
   annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/rewrite-target: / # Optional for NGINX Ingress controller
 spec:
   rules:
   - host: example.com
