@@ -1,5 +1,4 @@
-# Ingress in Kubernetes | Managing External Access to Services
-### What is Ingress in Kubernetes?
+## Ingress in Kubernetes | Managing External Access to Services
 Ingress in Kubernetes is a powerful API object that manages external access to services within a Kubernetes cluster, typically HTTP and HTTPS traffic. It provides a way to define rules for routing external requests to the appropriate services based on the request's host and path.
 
 
@@ -12,7 +11,7 @@ Ingress in Kubernetes is a powerful API object that manages external access to s
 
 ### Why is Ingress Important in Kubernetes?
 - **Centralized Access Management**: Ingress provides a centralized way to manage external access to multiple services, simplifying the configuration and maintenance of access rules.
-- **Flexibility**: With Ingress, you can define complex routing rules and manage traffic based on various criteria, enhancing the flexibility of your application architecture.
+- **Flexibility**: With Ingress, you can define complex routing rules and manage traffic based on various criteria.
 - **Security**: Ingress supports TLS/SSL termination, enabling secure communication between clients and services.
 - **Cost Efficiency**: By using a single Ingress controller to manage access to multiple services, you can reduce the need for multiple load balancers, lowering infrastructure costs.
 
