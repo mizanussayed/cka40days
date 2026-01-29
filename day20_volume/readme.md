@@ -9,15 +9,15 @@
 ```yaml
 volumeMounts:
     - name: redis-storage
-      mountPath: /data/redis
+      mountPath: /data/redis # path inside the container
   volumes:
   - name: redis-storage
-    emptyDir: {}
+    emptyDir: {} # non-persistent volume meaning data will be lost if pod is deleted, if needed to be persistent use pv & pvc
 ```
 
 ### Sample pv used in the demo
 
-```
+```yaml
 apiVersion: v1
 kind: PersistentVolume
 metadata:
@@ -36,7 +36,7 @@ spec:
 
 ### Sample PVC used in the demo
 
-```
+```yaml
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
