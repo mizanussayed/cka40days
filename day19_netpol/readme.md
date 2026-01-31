@@ -23,7 +23,6 @@ networking:
 https://docs.tigera.io/calico/latest/getting-started/kubernetes/kind
 
 #### Application manifest
-
 ``` yaml
 apiVersion: v1
 kind: Pod
@@ -41,20 +40,6 @@ spec:
       protocol: TCP
 ---
 apiVersion: v1
-kind: Service
-metadata:
-  name: frontend
-  labels:
-    role: frontend
-spec:
-  selector:
-    role: frontend
-  ports:
-  - protocol: TCP
-    port: 80
-    targetPort: 80
----
-apiVersion: v1
 kind: Pod
 metadata:
   name: backend
@@ -68,20 +53,6 @@ spec:
     - name: http
       containerPort: 80
       protocol: TCP
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: backend
-  labels:
-    role: backend
-spec:
-  selector:
-    role: backend
-  ports:
-  - protocol: TCP
-    port: 80
-    targetPort: 80
 ---
 apiVersion: v1
 kind: Service
@@ -121,9 +92,7 @@ spec:
           containerPort: 3306
           protocol: TCP
 ```
-
 #### Network policy sample
-
 ```yaml
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
