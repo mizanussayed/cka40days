@@ -25,13 +25,13 @@ metadata:
   labels:
     type: local
 spec:
-  storageClassName: standard
+  storageClassName: standard # other classname could be fast, slow
   capacity:
     storage: 1Gi
   accessModes:
     - ReadWriteOnce
   hostPath:
-    path: "/home/ubuntu/day28-storage-k8s"
+    path: "/home/mizanus/cka40days/storage-k8s"
 ```
 
 ### Sample PVC used in the demo
