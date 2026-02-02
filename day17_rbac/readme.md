@@ -28,7 +28,7 @@ metadata:
   namespace: default
 subjects:
 - kind: User # other options: Group, ServiceAccount
-  name: jane
+  name: mizanus
   apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: Role
@@ -54,7 +54,7 @@ metadata:
   name: admin-binding
 subjects:
 - kind: User
-  name: admin
+  name: mizanus
   apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
@@ -67,19 +67,19 @@ You can use the `kubectl auth can-i` command to check if a user has specific per
   # check current user
   kubectl auth whoami
   # for user
-  kubectl auth can-i get pods --as=jane #output: yes
+  kubectl auth can-i get pods --as=mizanus #output: yes
   # for group
   kubectl auth can-i get pods --as=system:authenticated:group:my-group
 ```
-This command checks if the user "jane" can get pods in the current namespace.
+This command checks if the user "mizanus" can get pods in the current namespace.
 ### by command line
 ```bash
 kubectl create role pod-reader --verb=get,list,watch --resource=pods --namespace=default
 
-kubectl create rolebinding read-pods-binding --role=pod-reader --user=jane --namespace=default
+kubectl create rolebinding read-pods-binding --role=pod-reader --user=mizanus --namespace=default
 
 kubectl create clusterrole node-reader --verb=get,list,watch --resource=nodes
-kubectl create clusterrolebinding node-reader-binding --clusterrole=node-reader --user=jane
+kubectl create clusterrolebinding node-reader-binding --clusterrole=node-reader --user=mizanus
 ```
 ### command for get resource /apiGroup & versions
 ```bash
