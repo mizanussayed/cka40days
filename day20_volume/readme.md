@@ -1,8 +1,4 @@
-# Kubernetes Volume Simplified | Persistent Volume, Persistent Volume Claim & Storage Class
-
-### How they are related to each other
-
-![image](https://github.com/user-attachments/assets/dfe93e1e-e5d2-447a-a3da-ee2391b1b73a)
+## Kubernetes Volume Simplified | Persistent Volume, Persistent Volume Claim & Storage Class
 
 ### Example snippet of non-persistent volume , type:emptydir
 
