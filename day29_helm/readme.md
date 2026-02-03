@@ -38,6 +38,14 @@ helm pull <chart> --verify              # Verify the package before using it
 helm pull <chart> --version <number>    # Default-latest is used, specify a version constraint for the chart version to use
 helm dependency list <chart>            # Display a list of a chart’s dependencies
 ```
+## release a chart
+```bash
+helm install <release-name> <chart-path>   # Install a chart
+helm install mynginx ./mychart              # Install a chart from local path
+# list installed releases
+helm list                                   # List all releases in the current namespace
+helm list --all-namespaces                  # List all releases in all namespaces
+``
 
 ## Install and Uninstall Apps
 ```bash
