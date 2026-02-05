@@ -1,4 +1,4 @@
-# Kustomize (TODO- Work in progress)
+# Kustomize in Kubernetes
 
 Consider an application with a deployment, service, and a configmap. 
 
@@ -68,7 +68,7 @@ Earlier you had everything inside a root directory, for example
 $HOME/
   ├── deployment.yaml
   ├── service.yaml
-  ├── config.properties
+  ├── config.properties # This is the file from which configmap will be generated
   └── kustomization.yaml
 ```
 
@@ -78,7 +78,7 @@ Now, you can move this to a root directory called Base and create a separate dir
 Base/
   ├── deployment.yaml
   ├── service.yaml
-  ├── config.properties
+  ├── config.properties # This is the file from which configmap will be generated
   └── kustomization.yaml
 overlays/
   ├── dev/
