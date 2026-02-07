@@ -1,0 +1,16 @@
+bases:
+- ../../base
+
+namespace: dev
+
+patches:
+- path: replicas.yaml
+- target:
+    kind: Deployment
+    name: myapp
+  patch: |-
+    - op: replace
+
+configMapGenerator:
+- name: myapp-config
+  env: config.properties

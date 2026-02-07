@@ -1,0 +1,13 @@
+resources:
+- deployment.yaml
+- service.yaml
+
+commonLabels:
+  app: myapp
+
+namePrefix:
+  kustom-
+nameSuffix:
+
+commonAnnotations:
+  owner: mizanussayed

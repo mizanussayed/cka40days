@@ -10,13 +10,12 @@ Move the common labels , prefix/suffix and annotations from each of the manifest
 resources:
   - deployment.yaml
   - service.yaml
-  - configmap.yaml
 commonLabels:
   app: mydemoapp
 commonAnnotations:
   app: myanno
 namePrefix: kustom-
-nameSuffix: -v0.1
+nameSuffix: -v1
 ```
 
 In this sample kustomization.yaml, we have five top level fields:
@@ -32,7 +31,7 @@ Once you have created your kustomization.yaml, you can execute the command
 
 It will generate a manifest yaml by overridding all the fields in existing yamls, you can apply the changes by redirecting to a file such as
 
-```yaml
+```bash
 kubectl kustomize . > manifest.yaml
 kubectl apply -f manifest.yaml
 ```
@@ -101,7 +100,10 @@ bases:
   - ../../base
 namespace: dev
 patches:
-  - replicas.yaml
+  - path: replicas.yaml
+  - target:
+      kind: Deployment
+      name: kustom-deployment-v1
 ```
 
 To apply these configurations, simply use:
