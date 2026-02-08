@@ -1,5 +1,3 @@
-# Solution to the Day45 Assignment
-
 ## Understanding StatefulSets
 
 ### Key Components in This Solution
