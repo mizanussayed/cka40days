@@ -11,7 +11,7 @@ storageClass:
   reclaimPolicy: Retain
 
 persistence:
-  count: 5
+  count: 3
   basePath: /mnt/data
   volumeName: mongodb-pv
 
