@@ -376,3 +376,15 @@ kubectl delete sc mongodb-sc
 ```
 
 
+# 6. with Helm
+```bash 
+  helm create mongodb-chart
+  # Update the yaml templates as per the requirements
+  helm install mongodb-chart ./mongodb-chart
+  # Verify the deployment
+  kubectl get all -l app=mongodb
+  # Clean up
+  helm uninstall mongodb-chart
+---
+
+

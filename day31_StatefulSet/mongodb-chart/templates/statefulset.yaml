@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: StatefulSet
+{{- with .Values.stateful }}
+metadata:
+  name: {{ .name }}
+spec:
+  serviceName: "{{ .name }}-service"
+  replicas: {{ .replicas }}
+  selector:
+    matchLabels:
+      app: {{ .name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .name }}
+    spec:
+      containers:
+      - name: {{ .name }}
+        image: {{ .image }}
+        ports:
+        - containerPort: {{ $.Values.service.targetPort }}
+          name: {{ .name }}
+        volumeMounts:
+        - name: {{ .volumeName }}
+          mountPath: {{ .volumeMountPath }}
+  volumeClaimTemplates:
+  - metadata:
+      name: {{ .volumeName }}
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      storageClassName: "{{ $.Values.storageClass.name }}"
+      resources:
+        requests:
+          storage: 1Gi
+{{- end }}

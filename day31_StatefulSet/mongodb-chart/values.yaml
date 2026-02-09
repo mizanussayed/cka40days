@@ -1,0 +1,30 @@
+service:
+  name: mongodb-service
+  port: 27017
+  targetPort: 27017
+
+
+storageClass:
+  name: mongodb-sc
+  provisioner: kubernetes.io/no-provisioner
+  volumeBindingMode: WaitForFirstConsumer
+  reclaimPolicy: Retain
+
+persistenceVolume:
+  - name: mongodb-pv-0
+    mountPath: /mnt/data/mongodb-pv-0
+  - name: mongodb-pv-1
+    mountPath: /mnt/data/mongodb-pv-1
+  - name: mongodb-pv-2
+    mountPath: /mnt/data/mongodb-pv-2 
+  - name: mongodb-pv-3
+    mountPath: /mnt/data/mongodb-pv-3
+  - name: mongodb-pv-4
+    mountPath: /mnt/data/mongodb-pv-4
+
+stateful:
+  name: mongodb
+  replicas: 3
+  image: mongo:4.4
+  volumeName: mongodb-data
+  volumeMountPath: /data/db
