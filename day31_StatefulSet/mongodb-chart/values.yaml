@@ -10,17 +10,10 @@ storageClass:
   volumeBindingMode: WaitForFirstConsumer
   reclaimPolicy: Retain
 
-persistenceVolume:
-  - name: mongodb-pv-0
-    mountPath: /mnt/data/mongodb-pv-0
-  - name: mongodb-pv-1
-    mountPath: /mnt/data/mongodb-pv-1
-  - name: mongodb-pv-2
-    mountPath: /mnt/data/mongodb-pv-2 
-  - name: mongodb-pv-3
-    mountPath: /mnt/data/mongodb-pv-3
-  - name: mongodb-pv-4
-    mountPath: /mnt/data/mongodb-pv-4
+persistence:
+  count: 5
+  basePath: /mnt/data
+  volumeName: mongodb-pv
 
 stateful:
   name: mongodb

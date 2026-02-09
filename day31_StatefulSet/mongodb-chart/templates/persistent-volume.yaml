@@ -1,9 +1,9 @@
-{{- range .Values.persistenceVolume }}
+{{- range $i := until (.Values.persistence.count | int) }}
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: {{ .name }}
-  labels:
+ name: {{ $.Values.persistence.volumeName }}-{{ $i }}
+ labels:
     type: local
 spec:
   storageClassName: {{ $.Values.storageClass.name }}
@@ -12,6 +12,7 @@ spec:
   accessModes:
     - ReadWriteOnce
   hostPath:
-    path: {{ .mountPath }}
+    path: {{ $.Values.persistence.basePath }}/{{ $.Values.persistence.volumeName }}-{{ $i }}
   persistentVolumeReclaimPolicy: {{ $.Values.storageClass.reclaimPolicy }}
+---
 {{- end }}
