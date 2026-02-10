@@ -160,7 +160,7 @@ frontend-route              30s
 
 The `describe` command should show that the HTTPRoute is accepted by the Gateway.
 
-## Step 5: Test the Basic Configuration
+### Step 7: Test the Basic Configuration
 
 To test if your configuration works:
 
@@ -175,9 +175,7 @@ curl http://$NODE_IP:30080/
 echo "http://$NODE_IP:30080/"
 ```
 
-You should see the response from the frontend application.
-
-
+We can see the response from the frontend application.
 
 ## Troubleshooting
 
@@ -224,4 +222,3 @@ If you encounter issues:
 3. **Standardization** - Consistent behavior across implementations
 4. **Extensibility** - Well-designed for custom resources and implementations
 
-By following this guide, you should have a solid understanding of how to use the Gateway API with NGINX Gateway Fabric to implement various routing strategies in Kubernetes.
