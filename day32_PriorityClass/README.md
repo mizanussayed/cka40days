@@ -1,8 +1,5 @@
-# Day46 Pod Priority and Preemption Solution
+# Pod Priority and Preemption 
 
-## Introduction
-
-This solution demonstrates how to implement Pod Priority and Preemption in Kubernetes. 
 
 When cluster resources are limited, not all pods can run simultaneously. Kubernetes uses Pod Priority to determine which pods should be scheduled 
 first and potentially preempt (evict) lower priority pods when necessary.
@@ -206,15 +203,13 @@ Watch the pods and observe preemption:
 kubectl get pods -o wide -w
 ```
 
-You should see one or more low-priority pods being terminated to make room for the high-priority pod.
+We can see one or more low-priority pods being terminated to make room for the high-priority pod.
 
 Check the events to observe preemption:
 
 ```bash
 kubectl get events --sort-by=.metadata.creationTimestamp
 ```
-
-
 
 ## Cleanup
 

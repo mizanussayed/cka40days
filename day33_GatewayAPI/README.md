@@ -1,8 +1,6 @@
-# Day 47 solution
+# Gateway API with NGINX Gateway Fabric
 
-## Prerequisites
-
-- A Kubernetes cluster (this guide works with minikube, kind, or playground such as [kodekloud](https://kode.wiki/4d24Q9Z) or cloud providers)
+- A Kubernetes cluster
 - kubectl installed and configured
 - Basic understanding of Kubernetes concepts such as pod, deployment, Ingress, services etc
 
@@ -115,11 +113,11 @@ nginx-gateway-class   gateway.nginx.org/nginx-gateway-controller  True       15s
 NAME            CLASS               ADDRESS         READY   AGE
 nginx-gateway   nginx-gateway-class  10.96.188.84   True    15s
 ```
-## Step 4: Create a pod named frontend-app that exposes container on port 8080
+### Step 4: Create a pod named frontend-app that exposes container on port 8080
 
-## Step 5: Create a svc that expose the frontend-app on port 80 with target port 8080
+### Step 5: Create a svc that expose the frontend-app on port 80 with target port 8080
 
-## Step 6: Expose the Frontend Service
+### Step 6: Expose the Frontend Service
 
 Now, let's create an HTTPRoute to route traffic to the `frontend-svc` service. Save the following YAML to `frontend-route.yaml`:
 
@@ -153,7 +151,7 @@ kubectl get httproute frontend-route
 kubectl describe httproute frontend-route
 ```
 
-You should see the HTTPRoute created and showing as "Accepted":
+We see the HTTPRoute created and showing as "Accepted":
 
 ```
 NAME            HOSTNAMES   AGE
