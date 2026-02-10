@@ -9,11 +9,6 @@ Ingress in Kubernetes is a powerful API object that manages external access to s
 4. **TLS/SSL Termination**: Ingress supports TLS/SSL termination, allowing secure HTTPS connections to be established. Certificates can be managed using Kubernetes Secrets.
 5. **Load Balancing**: Ingress controllers often provide load balancing capabilities, distributing incoming traffic across multiple instances of a service to ensure high availability and reliability.
 
-### Why is Ingress Important in Kubernetes?
-- **Centralized Access Management**: Ingress provides a centralized way to manage external access to multiple services, simplifying the configuration and maintenance of access rules.
-- **Flexibility**: With Ingress, you can define complex routing rules and manage traffic based on various criteria.
-- **Security**: Ingress supports TLS/SSL termination, enabling secure communication between clients and services.
-- **Cost Efficiency**: By using a single Ingress controller to manage access to multiple services, you can reduce the need for multiple load balancers, lowering infrastructure costs.
 
 ### configure by yaml files
 ```yaml

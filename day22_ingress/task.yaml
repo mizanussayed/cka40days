@@ -6,7 +6,7 @@ metadata:
     nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
   rules:
-  - host: example.com
+  - host: localhost
     http:
       paths:
       - path: /api
@@ -23,10 +23,6 @@ spec:
             name: web-service
             port:
               number: 80
-    tls:
-    - hosts:
-      - example.com
-      secretName: example-tls
 ---
 apiVersion: v1
 kind: Service
