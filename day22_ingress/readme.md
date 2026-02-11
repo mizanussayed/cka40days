@@ -9,8 +9,12 @@ Ingress in Kubernetes is a powerful API object that manages external access to s
 4. **TLS/SSL Termination**: Ingress supports TLS/SSL termination, allowing secure HTTPS connections to be established. Certificates can be managed using Kubernetes Secrets.
 5. **Load Balancing**: Ingress controllers often provide load balancing capabilities, distributing incoming traffic across multiple instances of a service to ensure high availability and reliability.
 
+## install nginx ingress controller
+```bash
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deploy/static/provider/cloud/deploy.yaml
+```
 
-### configure by yaml files
+## Example of Ingress Resource Configuration
 ```yaml
 apiVersion: networking.k8s.io/v1
 kind: Ingress
