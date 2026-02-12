@@ -2,7 +2,6 @@
 
 ## Prerequisites
 - kubectl installed and configured
-- Helm 3.x installed
 - Kind (Kubernetes in Docker) installed
 - Basic understanding of Kubernetes concepts such as pod, deployment, Ingress, services etc
 
@@ -53,56 +52,53 @@ Expected output should include CRDs like:
 - `httproutes.gateway.networking.k8s.io`
 - `grpcroutes.gateway.networking.k8s.io`
 
-## Step 3: Install NGINX Gateway Fabric Using Helm
+## Step 3: Install NGINX Gateway Fabric Using Official Helm Chart
 
-Add the NGINX Helm repository and install the Gateway controller:
+Install NGINX Gateway Fabric using the official OCI Helm chart:
 
 ```bash
-# Add NGINX Helm repository
-helm repo add nginx-stable https://helm.nginx.com/stable
-helm repo update
-
 # Create namespace for NGINX Gateway Fabric
 kubectl create namespace nginx-gateway
 
-# Install NGINX Gateway Fabric using Helm with NodePort service
-helm install nginx-gateway nginx-stable/nginx-gateway-fabric \
-  --namespace nginx-gateway \
+# Install NGINX Gateway Fabric from OCI registry
+helm install ngf oci://ghcr.io/nginx/charts/nginx-gateway-fabric \
   --create-namespace \
-  --set service.type=NodePort \
-  --set service.ports[0].name=http \
-  --set service.ports[0].port=80 \
-  --set service.ports[0].targetPort=80 \
-  --set service.ports[0].protocol=TCP \
-  --set service.ports[0].nodePort=30080 \
-  --set service.ports[1].name=https \
-  --set service.ports[1].port=443 \
-  --set service.ports[1].targetPort=443 \
-  --set service.ports[1].protocol=TCP \
-  --set service.ports[1].nodePort=30443
+  -n nginx-gateway
+
+# Or with NodePort service (recommended for Kind):
+helm install ngf oci://ghcr.io/nginx/charts/nginx-gateway-fabric \
+  --create-namespace \
+  -n nginx-gateway \
+  --set nginx.service.type=NodePort
 
 # Verify the deployment
 kubectl get pods -n nginx-gateway
 kubectl get svc -n nginx-gateway
 ```
 
+Wait for the deployment to be ready:
+
+```bash
+kubectl wait --timeout=5m -n nginx-gateway deployment/ngf-nginx-gateway-fabric --for=condition=Available
+```
+
 You should see the NGINX Gateway Fabric pods running:
 
 ```
 NAME                                      READY   STATUS    RESTARTS   AGE
-nginx-gateway-nginx-gateway-fabric-xxx    2/2     Running   0          30s
+ngf-nginx-gateway-fabric-xxxxx             1/1     Running   0          30s
 ```
 
 And the service with NodePort configured:
 
 ```
-NAME                                 TYPE       CLUSTER-IP      EXTERNAL-IP   PORT(S)                      AGE
-nginx-gateway-nginx-gateway-fabric   NodePort   10.96.188.84    <none>        80:30080/TCP,443:30443/TCP   2m
+NAME                    TYPE       CLUSTER-IP      EXTERNAL-IP   PORT(S)                     AGE
+ngf-nginx-gateway-fabric   NodePort   10.96.17.127    <none>        80:30250/TCP,443:32220/TCP  10s
 ```
 
 ## Step 4: Create GatewayClass and Gateway Resources
 
-Create the GatewayClass and Gateway resources. Save the following YAML to `gateway-resources.yaml`:
+The GatewayClass is already created by the NGINX Gateway Fabric deployment. Now create a Gateway resource. Save the following YAML to `gateway-resources.yaml`:
 
 ```yaml
 ---
@@ -315,7 +311,26 @@ If you encounter issues:
 
 ## Cleanup
 
-To remove all resources:
+### Option 1: Using Cleanup Script (Recommended)
+
+Run the automated cleanup script:
+
+```bash
+chmod +x cleanup.sh
+./cleanup.sh
+```
+
+This script will:
+- Delete HTTPRoute
+- Delete sample application (Pod and Service)
+- Delete Gateway resources
+- Delete NGINX Gateway Fabric Helm release
+- Delete Gateway API CRDs
+- Optionally delete Kind cluster
+
+### Option 2: Manual Cleanup
+
+If you prefer to cleanup manually:
 
 ```bash
 # Delete HTTPRoute and application
@@ -323,14 +338,38 @@ kubectl delete -f frontend-route.yaml
 kubectl delete -f frontend-app.yaml
 kubectl delete -f gateway-resources.yaml
 
-# Uninstall NGINX Gateway Fabric
-helm uninstall nginx-gateway -n nginx-gateway
+# Uninstall NGINX Gateway Fabric Helm release
+helm uninstall ngf -n nginx-gateway
+
+# Delete namespace
+kubectl delete namespace nginx-gateway
 
 # Delete Gateway API CRDs
 kubectl delete -f https://github.com/kubernetes-sigs/gateway-api/releases/download/v1.2.0/standard-install.yaml
 
 # Delete Kind cluster
 kind delete cluster --name gateway-demo
+```
+
+### Verify Cleanup
+
+Check if resources are cleaned up:
+
+```bash
+# Check for remaining gateways
+kubectl get gateway --all-namespaces
+
+# Check for remaining httproutes
+kubectl get httproute --all-namespaces
+
+# Check for Kind clusters
+kind get clusters
+
+# Check for Helm releases
+helm list -n nginx-gateway
+
+# Check for gateway CRDs
+kubectl get crd | grep gateway
 ```
 
 ## Key Concepts
