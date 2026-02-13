@@ -298,10 +298,11 @@ We can use [Infrastructure Labels](https://kubernetes.io/blog/2023/11/28/gateway
 
 | Controller | Video Guide | Directory |
 |------------|-------------|-----------|
-| Traefik | Introduction to Traefik Gateway API | traefik |
+| Traefik | Introduction to Traefik Gateway API | [traefik](traefik) |
+| NGINX Gateway Fabric | Introduction to NGINX Fabric Gateway API | [nginx-fabric](nginx-fabric) |
+| NGINX Ingress Migration | Migrating from NGINX Ingress to Gateway API | [nginx-ingress](nginx-ingress) |
 | Envoy | Introduction to Envoy Gateway API | envoy |
 | Istio | Introduction to Istio Gateway API | istio |
-| NGINX Fabric | Introduction to NGINX Fabric Gateway API | nginx-fabric |
 | Cilium | Introduction to Cilium Gateway API | cilium |
 | kgateway | Introduction to kgateway (a.k.a Gloo Gateway) | kgateway |
 | Linkerd | Introduction to Linkerd Gateway API | linkerd |
