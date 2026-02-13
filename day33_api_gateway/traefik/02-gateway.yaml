@@ -21,7 +21,9 @@ spec:
       tls:
         mode: Terminate
         certificateRefs:
-          - name: secret-tls
+          - kind: Secret
+            group: ""
+            name: secret-tls
             namespace: default
       allowedRoutes:
         namespaces:

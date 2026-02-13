@@ -3,6 +3,7 @@ kind: HTTPRoute
 metadata:
   name: go-route
   namespace: default
+  # CORS filter is an experimental Gateway API feature.
 
 spec:
   parentRefs:
