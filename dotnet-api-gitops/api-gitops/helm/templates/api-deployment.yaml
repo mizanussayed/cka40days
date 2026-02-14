@@ -17,9 +17,9 @@ spec:
           image: "{{ .Values.deployment.image.repository }}:{{ .Values.deployment.image.tag }}"
           ports:
             - containerPort: 8080
-          env:
-            - name: ConnectionStrings__Default
-              valueFrom:
-                secretKeyRef:
-                  name: {{ .Values.database.secretName }}
-                  key: CONNECTION_STRING
+          # env:
+          #   - name: ConnectionStrings__Default
+          #     valueFrom:
+          #       secretKeyRef:
+          #         name: {{ .Values.database.secretName }}
+          #         key: CONNECTION_STRING

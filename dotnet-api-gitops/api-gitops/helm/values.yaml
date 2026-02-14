@@ -2,7 +2,7 @@ deployment:
   replicaCount: 2
   name: dotnet-api
   image:
-    repository: mizanussyed/dotnet-api
+    repository: mizanussayed/dotnet-api
     tag: latest
 
 database:
