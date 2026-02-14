@@ -8,3 +8,6 @@ deployment:
 database:
   name: postgres
   secretName: postgres-secret
+  username: appuser
+  dbname: appdb
+  password: STRONGPASSWORD  # Override this in secrets.yaml or with --set flag

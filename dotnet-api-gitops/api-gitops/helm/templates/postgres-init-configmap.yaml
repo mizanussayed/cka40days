@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: postgres-init-config
+data:
+  init.sql: |
+    -- Create users table matching Entity Framework Core naming conventions
+    CREATE TABLE IF NOT EXISTS "Users" (
+      "Id" SERIAL PRIMARY KEY,
+      "UserName" VARCHAR(255) NOT NULL,
+      "CreatedAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    );

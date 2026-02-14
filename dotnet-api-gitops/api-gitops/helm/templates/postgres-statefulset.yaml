@@ -24,9 +24,25 @@ spec:
                 secretKeyRef:
                   name: {{ .Values.database.secretName }}
                   key: POSTGRES_PASSWORD
+            - name: POSTGRES_DB
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.database.secretName }}
+                  key: POSTGRES_DB
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.database.secretName }}
+                  key: POSTGRES_USER
           volumeMounts:
             - name: data
               mountPath: /var/lib/postgresql/data
+            - name: init-db
+              mountPath: /docker-entrypoint-initdb.d
+      volumes:
+        - name: init-db
+          configMap:
+            name: postgres-init-config
   volumeClaimTemplates:
     - metadata:
         name: data

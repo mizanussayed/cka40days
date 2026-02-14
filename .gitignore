@@ -37,17 +37,8 @@ Thumbs.db
 # Helm
 charts/*.tgz
 *.lock
-
-# Node.js (if any)
-node_modules/
-package-lock.json
-npm-debug.log*
-
-# Python (if any)
-__pycache__/
-*.py[cod]
-venv/
-.env
+helm/*/secrets.yaml
+api-gitops/helm/secrets.yaml
 
 # Temporary files
 *.tmp

@@ -8,3 +8,4 @@ spec:
     app: {{ .Values.database.name }}
   ports:
     - port: 5432
+      targetPort: 5432
