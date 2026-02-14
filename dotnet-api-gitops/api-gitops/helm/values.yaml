@@ -1,0 +1,10 @@
+deployment:
+  replicaCount: 2
+  name: dotnet-api
+  image:
+    repository: mizanussyed/dotnet-api
+    tag: latest
+
+database:
+  name: postgres
+  secretName: postgres-secret

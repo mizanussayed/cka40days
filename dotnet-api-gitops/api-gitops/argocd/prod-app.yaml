@@ -1,0 +1,17 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: dotnet-api-prod
+  namespace: argocd
+spec:
+  source:
+    repoURL: https://github.com/mizanussyed/dotnet-api-gitops.git
+    targetRevision: main
+    path: kustomize/prod
+  destination:
+    server: https://kind-prod
+    namespace: prod
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true

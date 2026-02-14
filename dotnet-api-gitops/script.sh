@@ -1,13 +1,11 @@
-```bash
 #!/bin/bash
 set -e
 
-ROOT=dotnet-api-gitops
-rm -rf $ROOT dotnet-api-gitops.zip
+ROOT=api-gitops
 
 mkdir -p \
-$ROOT/helm/dotnet-api/templates \
-$ROOT/kustomize/{base,dev,prod} \
+$ROOT/helm/templates \
+$ROOT/kustomize/{base,overlays,overlays/dev,overlays/prod} \
 $ROOT/argocd \
 $ROOT/.github/workflows
 
@@ -15,42 +13,44 @@ $ROOT/.github/workflows
 # HELM CHART
 ##################################
 
-cat <<EOF > $ROOT/helm/dotnet-api/Chart.yaml
+cat <<EOF > $ROOT/helm/Chart.yaml
 apiVersion: v2
 name: dotnet-api
 version: 0.1.0
 appVersion: "1.0"
 EOF
 
-cat <<EOF > $ROOT/helm/dotnet-api/values.yaml
-replicaCount: 2
-
-image:
-  repository: mizanussyed/dotnet-api
-  tag: latest
+cat <<EOF > $ROOT/helm/values.yaml
+deployment:
+  replicaCount: 2
+  name: dotnet-api
+  image:
+    repository: mizanussyed/dotnet-api
+    tag: latest
 
 database:
+  name: postgres
   secretName: postgres-secret
 EOF
 
-cat <<EOF > $ROOT/helm/dotnet-api/templates/api-deployment.yaml
+cat <<EOF > $ROOT/helm/templates/api-deployment.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: dotnet-api
+  name: {{ .Values.deployment.name }}-deployment
 spec:
-  replicas: {{ .Values.replicaCount }}
+  replicas: {{ .Values.deployment.replicaCount }}
   selector:
     matchLabels:
-      app: dotnet-api
+      app: {{ .Values.deployment.name }}
   template:
     metadata:
       labels:
-        app: dotnet-api
+        app: {{ .Values.deployment.name }}
     spec:
       containers:
         - name: api
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          image: "{{ .Values.deployment.image.repository }}:{{ .Values.deployment.image.tag }}"
           ports:
             - containerPort: 8080
           env:
@@ -61,48 +61,48 @@ spec:
                   key: CONNECTION_STRING
 EOF
 
-cat <<EOF > $ROOT/helm/dotnet-api/templates/api-service.yaml
+cat <<EOF > $ROOT/helm/templates/api-service.yaml
 apiVersion: v1
 kind: Service
 metadata:
-  name: dotnet-api
+  name: {{ .Values.deployment.name }}-service
 spec:
   type: ClusterIP
   selector:
-    app: dotnet-api
+    app: {{ .Values.deployment.name }}
   ports:
     - port: 80
       targetPort: 8080
 EOF
 
-cat <<EOF > $ROOT/helm/dotnet-api/templates/postgres-service.yaml
+cat <<EOF > $ROOT/helm/templates/postgres-service.yaml
 apiVersion: v1
 kind: Service
 metadata:
-  name: postgres
+  name: {{ .Values.database.name }}-service
 spec:
   clusterIP: None
   selector:
-    app: postgres
+    app: {{ .Values.database.name }}
   ports:
     - port: 5432
 EOF
 
-cat <<EOF > $ROOT/helm/dotnet-api/templates/postgres-statefulset.yaml
+cat <<EOF > $ROOT/helm/templates/postgres-statefulset.yaml
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: postgres
+  name: {{ .Values.database.name }}-statefulset
 spec:
-  serviceName: postgres
+  serviceName: {{ .Values.database.name }}-service
   replicas: 1
   selector:
     matchLabels:
-      app: postgres
+      app: {{ .Values.database.name }}
   template:
     metadata:
       labels:
-        app: postgres
+        app: {{ .Values.database.name }}
     spec:
       containers:
         - name: postgres
@@ -113,7 +113,7 @@ spec:
             - name: POSTGRES_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: postgres-secret
+                  name: {{ .Values.database.secretName }}
                   key: POSTGRES_PASSWORD
           volumeMounts:
             - name: data
@@ -139,7 +139,7 @@ kind: Kustomization
 helmCharts:
   - name: dotnet-api
     releaseName: dotnet-api
-    repo: file://../../helm/dotnet-api
+    repo: file://../../helm
     version: 0.1.0
     valuesFile: values.yaml
 EOF
@@ -148,7 +148,7 @@ EOF
 # KUSTOMIZE DEV
 ##################################
 
-cat <<EOF > $ROOT/kustomize/dev/kustomization.yaml
+cat <<EOF > $ROOT/kustomize/overlays/dev/kustomization.yaml
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
@@ -168,7 +168,7 @@ patches:
         value: 1
 EOF
 
-cat <<EOF > $ROOT/kustomize/dev/secret.yaml
+cat <<EOF > $ROOT/kustomize/overlays/dev/secret.yaml
 apiVersion: v1
 kind: Secret
 metadata:
@@ -183,7 +183,7 @@ EOF
 # KUSTOMIZE PROD
 ##################################
 
-cat <<EOF > $ROOT/kustomize/prod/kustomization.yaml
+cat <<EOF > $ROOT/kustomize/overlays/prod/kustomization.yaml
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
@@ -203,7 +203,7 @@ patches:
         value: 3
 EOF
 
-cat <<EOF > $ROOT/kustomize/prod/sealedsecret.yaml
+cat <<EOF > $ROOT/kustomize/overlays/prod/sealedsecret.yaml
 apiVersion: bitnami.com/v1alpha1
 kind: SealedSecret
 metadata:
