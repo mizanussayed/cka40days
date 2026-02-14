@@ -26,7 +26,7 @@ Let's checkout the [Official Documentation](https://docs.nginx.com/nginx-gateway
 
 In our other guides, we deployed and managed a Gateway Class outside of the controller installation. NGINX Fabric is a little different as their `GatewayClass` is managed by helm and there are extra configurations managed by the chart that gets injected into the `GatewayClass` under the `parametersRef` field.
 
-If you've been following this series you will know the `parametersRef` field is used to extend the class. NGINX uses a custom CRD called `NginxProxy` to customize the class, but these settings come from their `helm` chart.
+ NGINX uses a custom CRD called `NginxProxy` to customize the class, but these settings come from their `helm` chart.
 
 For example:
 
@@ -160,7 +160,7 @@ kubectl exec -it -n default $pod -- nginx -T
 
 ## HTTP Traffic management
 
-Feel free to quickly run through the basic [traffic management table](../README.md#traffic-management-features--http-routes) for using `HTTPRoute` routing for traffic.
+Feel free to quickly run through the basic [traffic management table](../readme.md#traffic-management-features--http-routes) for using `HTTPRoute` routing for traffic.
 
 **Note**: HTTPRoute features are not specific to this controller and should be available to any other gateway API controller that you choose.
 
@@ -224,5 +224,3 @@ kubectl describe SnippetsFilter custom-snippet
 
 - [NGINX Gateway Fabric Documentation](https://docs.nginx.com/nginx-gateway-fabric/)
 - [NGINX Gateway Fabric GitHub](https://github.com/nginx/nginx-gateway-fabric)
-- [Gateway API Official Documentation](https://gateway-api.sigs.k8s.io/)
-- [Original Source Code](https://github.com/marcel-dempers/docker-development-youtube-series/tree/master/kubernetes/gateway-api/nginx-fabric)

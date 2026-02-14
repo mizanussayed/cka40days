@@ -2,12 +2,6 @@
 
 This document provides a step-by-step solution for migrating an existing Kubernetes Ingress resource to the Gateway API.
 
-## Prerequisites
-
-- A Kubernetes cluster(1.24+) (this guide works with minikube, kind, or playground such as [kodekloud](https://kode.wiki/4d24Q9Z) or cloud providers)
-- kubectl installed and configured
-- Basic understanding of Kubernetes concepts such as pod, deployment, Ingress, services etc
-
 ## Step 1: Deploy the Sample Web Application and Services
 
 Let's first create the sample web application and services that our Ingress will route to:

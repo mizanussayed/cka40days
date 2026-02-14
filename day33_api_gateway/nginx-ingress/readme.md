@@ -1,7 +1,5 @@
 # Ingress-NGINX Migration to Gateway API
 
-[nginx-ingress-migration](https://youtu.be/7CaDvoKO9wo)
-
 This guide helps you migrate from NGINX Ingress Controller to Gateway API implementations.
 
 ## Ingress Class
@@ -581,4 +579,4 @@ kubectl label ingress python-route-auth migrated=true
 - [Ingress2Gateway Tool](https://github.com/kubernetes-sigs/ingress2gateway)
 - [Gateway API Migration Guide](https://gateway-api.sigs.k8s.io/guides/migrating-from-ingress/)
 - [NGINX Ingress Controller](https://kubernetes.github.io/ingress-nginx/)
-- [Original Source](https://github.com/marcel-dempers/docker-development-youtube-series/tree/master/kubernetes/gateway-api/nginx-ingress)
+
