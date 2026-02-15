@@ -9,16 +9,12 @@ This task file focuses on using Kustomize overlays with Argo CD.
 Install the following tools:
 
 ```bash
-docker --version
 kubectl version --client
 kind version
 helm version
-argocd version
 kubeseal --version
 ```
-
 ---
-
 ## Steps
 
 ```bash
@@ -41,23 +37,20 @@ helm repo update
 helm install argocd argo/argo-cd -n argocd
 
 # step 4 expose Argo CD server
-kubectl port-forward svc/argocd-server -n argocd 8080:443
+kubectl port-forward svc/argocd-server -n argocd 8080:443 &
 
 # Get initial admin password
 kubectl -n argocd get secret argocd-initial-admin-secret \
 -o jsonpath="{.data.password}" | base64 -d
 
 # step 5 login to Argo CD CLI
-argocd login localhost:8080
+curl localhost:8080
 
-# step 6 register prod cluster in Argo CD
-argocd cluster add kind-prod
-
-# step 7 install Sealed Secrets controller in prod cluster
+# step 6 install Sealed Secrets controller in prod cluster
 kubectl config use-context kind-prod
 kubectl apply -f https://github.com/bitnami-labs/sealed-secrets/releases/latest/download/controller.yaml
 
-# step 8 create namespaces in both clusters
+# step 7 create namespaces in both clusters
 kubectl create namespace dev
 kubectl create namespace prod
 
@@ -92,14 +85,4 @@ kubeseal \
 # deploy Argo CD Applications (Kustomize)
 kubectl apply -f api-gitops/argocd/dev-app.yaml
 kubectl apply -f api-gitops/argocd/prod-app.yaml
-```
-
----
-
-## Verify
-
-```bash
-argocd app list
-argocd app get dotnet-api-dev
-argocd app get dotnet-api-prod
 ```
