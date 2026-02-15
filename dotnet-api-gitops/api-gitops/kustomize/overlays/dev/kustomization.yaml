@@ -4,7 +4,7 @@ kind: Kustomization
 namespace: dev
 
 resources:
-  - ../base
+  - ../../base
   - secret.yaml
 
 patches:
