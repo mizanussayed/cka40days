@@ -33,14 +33,18 @@ helm repo update
 helm install argocd argo/argo-cd -n argocd
 fi
 # step 4 expose Argo CD server
-kubectl port-forward svc/argocd-server -n argocd 8080:443 &
+kubectl port-forward svc/argocd-server -n argocd 8085:443 &
 
 # Get initial admin password
 kubectl -n argocd get secret argocd-initial-admin-secret \
 -o jsonpath="{.data.password}" | base64 -d
 
 # step 5 login to Argo CD CLI
-curl localhost:8080
+curl localhost:8085
+# curl mizaussaye/dotnet-api user api 
+curl -X POST http://localhost:<port>/users \
+  -H "Content-Type: application/json" \
+  -d '{"userName": "Mizanus Sayed"}'
 ```
 ---
 

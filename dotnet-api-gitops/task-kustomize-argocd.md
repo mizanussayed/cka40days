@@ -64,19 +64,6 @@ kubectl apply -f api-gitops/kustomize/overlays/dev/secret.yaml
 # prod secret is sealed using kubeseal
 kubectl config use-context kind-prod
 
-# create plain secret first (not pushed to git)
-cat <<EOF > prod-postgres-secret.yaml
-apiVersion: v1
-kind: Secret
-metadata:
-  name: postgres-secret
-  namespace: prod
-type: Opaque
-stringData:
-  CONNECTION_STRING: Host=postgres;Port=5432;Database=appdb;Username=appuser;Password=STRONGPASSWORD
-  POSTGRES_PASSWORD: STRONGPASSWORD
-EOF
-
 # create sealed secret
 kubectl config use-context kind-prod
 

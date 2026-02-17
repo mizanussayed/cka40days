@@ -1,25 +1,27 @@
 apiVersion: apps/v1
 kind: Deployment
+{{- with .Values.deployment }}
 metadata:
-  name: {{ .Values.deployment.name }}-deployment
+  name: {{ .name }}-deployment
 spec:
-  replicas: {{ .Values.deployment.replicaCount }}
+  replicas: {{ .replicaCount }}
   selector:
     matchLabels:
-      app: {{ .Values.deployment.name }}
+      app: {{ .name }}
   template:
     metadata:
       labels:
-        app: {{ .Values.deployment.name }}
+        app: {{ .name }}
     spec:
       containers:
         - name: api
-          image: "{{ .Values.deployment.image.repository }}:{{ .Values.deployment.image.tag }}"
+          image: "{{ .image.repository }}:{{ .image.tag }}"
           ports:
             - containerPort: 8080
           env:
             - name: ConnectionStrings__DefaultConnection
               valueFrom:
                 secretKeyRef:
-                  name: {{ .Values.database.secretName }}
+                  name: {{ $.Values.database.secretName }}
                   key: CONNECTION_STRING
+{{- end }}
