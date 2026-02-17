@@ -22,9 +22,7 @@ kubeseal --version
 kind create cluster --name dev
 kind create cluster --name prod
 # verify manifest yaml files for both clusters
-kubectl kustomize api-gitops/kustomize/overlays/dev  -o dev-output.yaml
-kubectl kustomize api-gitops/kustomize/overlays/prod -o prod-output.yaml
-
+kubectl apply -k api-gitops/kustomize/overlays/dev --dry-run=client -o yaml > dev-output.yaml
 # step 2 verify clusters
 kind get clusters
 
