@@ -1,8 +1,8 @@
 deployment:
   replicaCount: 2
-  name: dotnet-api
+  name: excelexplore-deployment
   image:
-    repository: mizanussayed/dotnet-api
+    repository: mizanussayed/excelexplore
     tag: latest
 
 database:

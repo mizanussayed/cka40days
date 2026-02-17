@@ -41,10 +41,6 @@ kubectl -n argocd get secret argocd-initial-admin-secret \
 
 # step 5 login to Argo CD CLI
 curl localhost:8080
-
-# step 7 create namespaces in both clusters
-kubectl create namespace dev
-kubectl create namespace prod
 ```
 ---
 
